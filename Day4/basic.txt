@@ -163,3 +163,49 @@ func main() {
 
 Summary:
 Byte slice ([]byte) in Go is an efficient way to store and manipulate data. It stores data in 8-bit units and is very useful for file operations.
+
+#Notes:
+In Go, log.Fatal(err) is used for logging errors and then terminating the program. It's a convenient way to handle critical errors where you don't want the program to continue executing.
+
+How It Works:
+log.Fatal:
+
+Logs the error message.
+
+Calls os.Exit(1) to terminate the program with a non-zero status code, indicating an error.
+
+Example:
+Here's a simple example demonstrating the use of log.Fatal:
+
+package main
+
+import (
+    "log"
+    "os"
+)
+
+func main() {
+    file, err := os.Open("nonexistent.txt")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer file.Close()
+    // Rest of the code...
+}
+
+
+Explanation:
+1.Open a File:
+
+Attempt to open a file named nonexistent.txt.
+
+If the file doesn't exist, os.Open will return an error.
+
+2.Error Handling with log.Fatal:
+
+If err is not nil, log.Fatal(err) logs the error message and terminates the program.
+
+The program stops executing immediately, and no further code is run.
+
+Summary:
+log.Fatal(err) is a quick and effective way to handle critical errors in Go by logging the error and terminating the program. It's particularly useful when the error is unrecoverable, and you don't want to continue execution.
