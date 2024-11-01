@@ -35,6 +35,9 @@ type Employee struct{
 
 /*Tags in Structs:
 Tags provide metadata for struct fields, often used for JSON encoding/decoding.*/
+/*
+In Go, a struct tag is a string of metadata associated with a struct field. Struct tags are often used to specify how the field should be serialized or deserialized by packages like encoding/json, database/sql, and others. Tags are placed within backticks (`) directly after the field definition.
+*/
 type Alien struct{
 	Planet string `json:"Planet"`
 	Powers string    `json:"Powers"`
@@ -87,6 +90,9 @@ x:=Alien{
 	Powers:"Leaser",
 	FromSpace: true,
 }
+/*
+json.Marshal() is a function in Go’s encoding/json package. It converts a Go data structure (like a struct, map, or slice) into JSON format, which is a standard format for data exchange.
+*/
 jsonData,_ := json.Marshal(x)
 fmt.Println(string(jsonData))
 
