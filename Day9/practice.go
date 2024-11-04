@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"practice.com/note"
+	"practice.com/todo"
 )
 
 func getUserInput(prompt string)(string) {
@@ -55,5 +56,17 @@ if err!=nil{
 }
 fmt.Println("Saving the note succeeded")
 
+todoText:= getUserInput("Todo Text: ")
+todo,err:= todo.New(todoText)
 
+if(err!=nil){
+  fmt.Println(err)
+  return
+}
+todo.Display()
+err=todo.Save()
+if err!=nil{
+  fmt.Println("Saving the note failed")
+}
+fmt.Println("Saving the note succeeded")
 }
