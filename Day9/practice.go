@@ -47,4 +47,13 @@ if(err!=nil){
 }
 // fmt.Println(userNote)
 userNote.Display()
+
+//
+err = userNote.Save()
+if err!=nil{
+  fmt.Println("Saving the note failed")
+}
+fmt.Println("Saving the note succeeded")
+
+
 }
