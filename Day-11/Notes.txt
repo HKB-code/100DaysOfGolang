@@ -1,0 +1,57 @@
+=>Array: var arr [3]int
+- Fixed size: Length is part of the type ([3]int)
+- Stored on stack (usually)
+- Cannot grow or shrink
+- Value semantics: Copying an array copies all elements
+
+=>Slice:
+var slice []int
+slice = append(slice, 42)
+- Dynamic size: Type is []int
+- Backed by an array (internally)
+- Can grow using append
+- Reference semantics: Copying a slice copies the header, not the data
+
+
+=>🧠 Slice Anatomy
+A slice is a lightweight struct:
+type sliceHeader struct {
+    Data uintptr // pointer to array
+    Len  int     // number of elements
+    Cap  int     // capacity of underlying array
+}
+
+
+=>🧪 Creating Slices
+1.From an array:
+a := [5]int{10, 20, 30, 40, 50}
+s := a[1:4] // s = [20, 30, 40]
+
+2.Standalone
+var s []int
+s = append(s, 100)
+
+3.With make
+s := make([]int, 3, 5) // len=3, cap=5
+
+🔍 Key Differences
+Array:-
+1.Syntax = [N]T
+2.size = Fixed
+3.Growable = No
+4.Copy Behavior = Deep Copy
+5.Use Case = Low-level control
+6.Memory = Stack
+
+Slices:-
+1.Syntax = []T
+2.size = Dynamics
+3.Growable = Yes
+4.Copy Behavior = Shallow Copy
+5.Use Case = Idiomatic Go
+6.Memory = Heap(usually)
+
+
+🧠 Rule of Thumb:-
+Use arrays when size is fixed and performance matters.
+Use slices for flexible, idiomatic, real-world Go code
