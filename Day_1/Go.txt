@@ -1,0 +1,37 @@
+why Go?
+-> It was start creating in 2006 that was a really important time period.
+That's an important, important year in computer science because in 2005, the first dual core processors
+
+became widely available and were released by Intel.
+
+And up until that point in time, there were no programming languages that existed that could natively
+
+and easily take advantage of multiple cores.
+
+And so Go was built to natively and easily run concurrent code in a parallel fashion on multiple cores.
+
+And so there can be confusion about the difference between concurrency and parallelism.
+
+So concurrency is a design pattern.
+
+You write computer code with concurrency design patterns, right?
+
+So this is code that's written with concurrency design patterns.
+
+And then when you run that code on machines with multiple cores, that code can run in parallel.
+
+So you have concurrency which are design patterns, and you have parallelism, which is running code
+
+on multiple on computers, multiple cores in parallel.
+
+So concurrency and parallelism.
+
+
+->And up until that point in time, they said all other languages could allow you to have two of those,
+
+but never all three.
+
+So they wanted all three of those.
+->efficient compilation
+->efficient execution
+-> ease of programming
