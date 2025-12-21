@@ -62,3 +62,41 @@ func add(a int, b int) int {
 }
 
 In this example, the add function takes two integers as arguments and returns an integer. Specifying int as the return type ensures that the function will always return an integer, providing clarity and safety.
+
+# Printf vs Sprintf
+
+A.Printf:
+
+1.Purpose: Prints formatted output directly to standard output (stdout).
+2.Output: Writes directly to os.Stdout.
+3.Return Value: n (number of bytes written) and error (usually ignored).
+4.Common use case: Logging, console output, debugging messages.
+5.Performance: Slightly faster for direct output (no string allocation).
+
+
+B.Sprintf:
+
+1.Purpose: Returns a formatted string (does not print anything).
+2.Output: Returns a string value that you can use anywhere.
+3.Return Value: The formatted string.
+4.Common use case: Building strings, preparing messages for logging, errors, templates, etc.
+5.Performance: Involves string allocation, but negligible in most cases.
+
+
+Note:
+Rule of thumb:
+If you're printing → use Printf  
+If you're building a string → use Sprintf
+
+
+Quick Summary TableWhen to use
+
+You want to print to console => fmt.Printf => Direct, simple, no extra variable needed
+
+You need the formatted string for further use (logging, error, template, etc.) => fmt.Sprintf => Gives you control over the string
+You want to build dynamic strings (e.g., for HTTP responses, emails) => fmt.Sprintf => Returns the string you can manipulate
+
+
+
+
+
