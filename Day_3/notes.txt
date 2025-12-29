@@ -79,3 +79,19 @@ If you want, I can also explain:
 ✅ compile-time vs runtime memory
 ✅ compile-time vs runtime binding
 
+ Compile-time vs Runtime Polymorphism
+- Compile-time: Decided by the compiler before running (e.g., method overloading, generics).
+- Runtime: Decided while the program runs (e.g., interfaces, inheritance, dynamic dispatch).
+
+🔹 Compile-time vs Runtime Memory
+- Compile-time: Fixed memory decided at compile time (stack, static variables).
+- Runtime: Allocated while program runs (heap, dynamic objects, garbage collection).
+
+🔹 Compile-time vs Runtime Binding
+- Compile-time (early binding): Function calls resolved at compile time (direct calls).
+- Runtime (late binding): Function calls resolved at runtime (virtual functions, interface calls).
+
+👉 Think of it like this:
+- Compile-time = fixed, known in advance.
+- Runtime = flexible, decided on the fly
+
