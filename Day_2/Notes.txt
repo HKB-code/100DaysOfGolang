@@ -35,6 +35,12 @@ Use Cases:
 1.Passing by Reference: Functions can modify variables by accepting pointers.
 2.Large Data Structures: Pass pointers to structs to avoid copying.
 3.Dynamic Memory: Use pointers with new() or for complex data structures.
+EXAMPLE:
+p := new(int)   // p is *int
+*p = 42
+fmt.Println(*p) // 42
+- Think of it like asking the OS for a fresh "empty locker" and getting the locker’s address back.
+
 
 
 Qus.go run . executes the main module package and the main function inside in it
