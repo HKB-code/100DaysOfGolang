@@ -52,4 +52,14 @@ Ensure Proper Execution and Termination: Using cmd /C ensures that the command r
         return
     }
     fmt.Printf("Output: %s\n",string(output))
+    		/*
+		⚡ Backend Analogy
+Think of this as:
+- Define request → exec.Command(...)
+- Send request & get response → cmd.Output()
+- Check for errors → if ERR != nil
+- Print response body → fmt.Printf(...)
+It’s like making an HTTP call to the OS shell and printing the response.
+
+		*/
 }
