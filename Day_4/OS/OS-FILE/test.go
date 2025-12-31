@@ -256,5 +256,20 @@ In Your Filesystem Example
 
 */
 
+// Notes:
+/*
+- os.Stat(path)
+- Takes a file path string
+- Works only with the real filesystem
+- Doesn’t require opening the file
+- Always backed by OS syscall (stat)
+-Quick metadata lookup
 
+- file.Stat() (fs.File from os.DirFS.Open)
+- Called on an opened file handle
+- Works with any fs.FS (real, embed, custom)
+- Requires file to be opened first
+- Behavior depends on FS implementation (DirFS → OS-backed, embed.FS → compile-time metadata)
+-Metadata tied to an opened file, or abstract FS
+*/
 }
