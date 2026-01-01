@@ -19,6 +19,7 @@ type User struct{
 type Admin struct{
 	Email string
 	Password string
+	// compostion
 	User User
 }
 
@@ -55,3 +56,30 @@ func NewUser(firstName,lastName,birthdate string) (*User,error){
 		createdAt: time.Now(),
 	},nil
 }
+
+/*
+Go Struct: Composition vs Embedding – Key Notes
+
+User User   // named field
+
+→ This is Composition (Admin has-a User).
+Composition (named field):Access: admin.User.firName, admin.User.OutputString()
+Methods NOT promoted → must use .User.Method()
+
+Embedding (for promotion):go
+
+User        // no field name → anonymous field
+
+→ This is Embedding.
+Embedding benefits:Fields promoted → admin.firName (direct access)
+Methods promoted → admin.OutputString(), admin.ClearUserName() (direct call)
+
+Method receiver rules (works in both cases):Method defined on *User (pointer receiver)
+Can call on pointer: appUser.OutputString() ✓
+Can call on value: admin.User.OutputString() ✓ → Go auto takes address (&admin.User)
+
+Best choice:Want clear separation → use Composition (User User)
+Want inheritance-like behavior → use Embedding (User)
+
+
+*/
