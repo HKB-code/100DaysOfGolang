@@ -1,0 +1,37 @@
+📝 Key Notes on Go Packages & File
+
+# Imports
+- Standard library: fmt
+- Custom/local packages: example.com/fileOps
+- Third-party modules: github.com/pallinder/go-randomdata
+
+# Running Files
+- go run . → runs all .go files in the current folder (same package).
+- go run main.go → runs only that file; helpers won’t be included unless compiled together.
+
+# Package Rules
+- One package per folder → ✅ allowed.
+- Multiple packages in the same folder → ❌ not allowed.
+- All files in a folder must declare the same package name
+
+# - File Naming
+- Files can have any name (main.go, helper.go, utils.go).
+- Names don’t need to match the package name. 
+
+#  Main Package
+- Must contain func main().
+- Represents an executable program.
+- Typically resides in the root folder.
+
+# Subfolders
+- Each package should live in its own subfolder.
+- Example:
+project/
+├── main.go          // package main
+└── fileops/
+    └── ops.go       // package fileops
+
+# Package vs Folder Name
+- Folder name and package name don’t have to be the same.
+- Best practice: keep them the same for clarity.
+- Import path uses folder name, not package name.
