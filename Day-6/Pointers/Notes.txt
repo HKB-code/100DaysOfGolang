@@ -24,7 +24,8 @@ nil represents the absence of an address value - i.e., a pointer pointing at no 
 
 ///////////////////////////////////////////////
 Notes:
-1. in Go, you can't perform pointer arithmetic, meaning you can't directly manipulate pointers with calculations. This design choice helps prevent many of the complex and error-prone issues that can arise with pointer arithmetic in languages like C or C++.
+1. in Go, you can't perform pointer arithmetic - (e.g., ptr++, ptr+1).
+, meaning you can't directly manipulate pointers with calculations. This design choice helps prevent many of the complex and error-prone issues that can arise with pointer arithmetic in languages like C or C++.
 
 Why No Pointer Arithmetic in Go?
 Safety: Prevents errors like buffer overflows, illegal memory access, and other memory corruption issues.
