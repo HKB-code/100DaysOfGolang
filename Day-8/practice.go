@@ -4,23 +4,35 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
 
 	"example.com/practice/note"
 )
 
+// func getInputs(text string)(string){
+// fmt.Printf("%v ",text)
+// reader:=bufio.NewReader(os.Stdin)
+// text,err := reader.ReadString('\n')
+// if err != nil {
+// 	return ""
+// }
+// text = strings.TrimSuffix(text,"\n")
+// text = strings.TrimSuffix(text,"\r")
+// 	return text
+
+// }
+// best way:
 func getInputs(text string)(string){
 fmt.Printf("%v ",text)
-reader:=bufio.NewReader(os.Stdin)
-text,err := reader.ReadString('\n')
-if err != nil {
-	return ""
+scanner:=bufio.NewScanner(os.Stdin)
+if scanner.Scan(){
+	return  scanner.Text()
 }
-text = strings.TrimSuffix(text,"\n")
-text = strings.TrimSuffix(text,"\r")
-	return text
+if err:=scanner.Err();err!=nil{
+	 fmt.Println("Input error:", err)
+}
+return ""
+}
 
-}
 func getNoteData()(string ,string){
 	title :=getInputs("Note title: ")
 
