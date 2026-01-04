@@ -1,0 +1,100 @@
+Go Interfaces & Boxing – Short Notes:
+
+1. What is Boxing?
+-Boxing occurs when a value type (int, float64, bool, struct, array, etc.) is assigned to an interface{} or any.
+-Go copies the value and allocates it on the heap.
+-The interface stores:
+  a.Type information (what the original type was)
+  b.Pointer to the heap-allocated boxed copy
+
+
+2. When Does Boxing Happen?
+-Yes (full cost):
+  a.any = 42 → int boxed (heap allocation + copy)
+  b.any = MyStruct{...} → entire struct copied to heap
+
+-Technically yes, but almost zero cost:
+  a.any = "hello" → string is already heap-based; no extra allocation or copy
+  b.any = []int{1,2} → only slice header copied (data already on heap)
+  c.any = &someVar → only pointer copied (no value boxing)
+
+
+3. Why Can't We Directly Assign []int to []any?
+-[]int and []any are completely different types.
+-Go does not allow direct conversion for type safety.
+-If allowed, someone could do anySlice[0] = "hello" and corrupt the underlying array of the original []int.
+-Must manually copy elements → each assignment causes boxing of the int.
+
+
+4. any vs interface{}
+-any and interface{} are exactly the same thing.
+-any is a type alias introduced in Go 1.18:
+
+type any = interface{}
+
+-Use any in modern code (cleaner, especially with generics).
+
+5. Inside a []any Slice
+-Slice type: []any → each element is an interface.
+-When storing an int:
+
+anySlice[i] = 42
+
+-anySlice[i] holds an interface value containing:
+  a.Type = int
+  b.Data = pointer to heap-allocated boxed int (value 42)
+
+
+6. Performance Impact of Boxing
+-Extra heap allocations
+-Increased memory usage
+-More work for garbage collector
+-Slower execution (especially in loops with many value types)
+
+7. How to Avoid Boxing
+-Use pointers: any = &myInt or any = &myStruct → only pointer copied
+-Use generics (Go 1.18+):
+func Print[T any](s []T) { ... }
+→ No interface, no boxing needed
+-Avoid heavy use of any/interface{} in performance-critical code
+
+=>What Happens with This Generic Code?
+
+func Print[T any](values []T) {
+    for _, v := range values {
+        fmt.Println(v)
+    }
+}
+
+func main() {
+    nums := []int{1, 2, 3, 4}
+    Print(nums)  // Direct pass, no conversion
+}
+
+1.Compiler performs monomorphization  
+-At compile time, Go sees that Print is called with []int.  
+-It generates a specialized concrete function equivalent to PrintInt(values []int).
+
+2.Direct use of the original slice  
+-The generated function works directly on []int.  
+-No type conversion, no copying of elements.  
+-Same underlying array and slice header are used.
+
+3.Zero runtime overhead  
+-Zero boxing – no values copied to heap  
+-Zero allocations – no extra memory allocated  
+-Zero indirection – no interface dispatch  
+-Performance is almost identical to a hand-written non-generic function like:
+func PrintInts(values []int) { ... }
+
+
+Why Generics Achieve This
+-Generics are resolved entirely at compile time (unlike interfaces, which add runtime cost).
+-The compiler creates separate optimized code for each concrete type used.
+-At runtime, only fast, type-specific code executes
+
+
+Key Takeaway
+-Use generics in modern Go (1.18+) when you need reusable code across types.
+-Generics give you the flexibility of interface{}/any without the performance penalty of boxing and allocations.
+
