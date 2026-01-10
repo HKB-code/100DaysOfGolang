@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 )
 
@@ -57,11 +58,18 @@ func (fm FileManager) WriteResult(data any)error{
 	return  errors.New("Failed to create File")
 	}
 
-	encoder:=json.NewEncoder(file)
-	err=encoder.Encode(data)
-	if err != nil {
-		return errors.New("Failed to convert data into json")
-	}
+// 	encoder:=json.NewEncoder(file)
+// 	err=encoder.Encode(data)
+// 	if err != nil {
+// 		/*errors.New("...") creates a static error → loses the original error information
+// → Very hard to debug what actually went wrong
+// Very common pattern → Go community prefers to wrap the original error
+// */
+// 		return fmt.Errorf("failed to write JSON to file: %w", err)
+// 	}
+if err := json.NewEncoder(file).Encode(data); err != nil {
+    return fmt.Errorf("cannot encode data as JSON to file: %w", err)
+}
 	return  nil
 }
 
