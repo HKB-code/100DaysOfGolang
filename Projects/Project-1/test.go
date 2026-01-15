@@ -34,8 +34,41 @@ package main
 import (
 	"flag"
 	"fmt"
+	"strings"
 )
 
+// It satisfy the flag.Value Interface,That's the beauty of Go interfaces. No registration, no boilerplate – just implement the methods and it "just works".
+
+type Strings []string
+ /*
+ once you correctly define the two required methods on the pointer receiver (*Strings),
+Go and the flag package automatically use them whenever needed.
+
+
+ */
+ func (s *Strings)String()string{return  strings.Join(*s,",")}
+ /*
+ func (s *Strings) Set(v string) error {
+    // Agar comma hai to split karo, warna poora as one item add karo
+    if strings.Contains(v, ",") {
+        parts := strings.Split(v, ",")
+        for _, part := range parts {
+            trimmed := strings.TrimSpace(part)
+            if trimmed != "" {
+                *s = append(*s, trimmed)
+            }
+        }
+    } else {
+        *s = append(*s, v)
+    }
+    return nil
+}
+ */
+//  best practice
+ func(s *Strings)Set(v string)error{
+	*s = append(*s,v)
+	return  nil
+ }
 func main() {
 	// define a flag
 	name:= flag.String("name","world","a name to greet")
@@ -47,6 +80,10 @@ func main() {
 	// Bind directly to a variable 
 	flag.IntVar(&quantity, "quantity", 2,"number of shots")
 
+	  // Define the custom repeatable flag
+    var tags Strings
+    flag.Var(&tags, "tag", "add a tag (can be repeated)")
+
 // parse command-line arguments
 	flag.Parse()
 	// use flag value
@@ -57,6 +94,16 @@ if *verbose{
 	 fmt.Println("Greeting number:", i+1)
 }
 	}
+
+	    if len(tags) == 0 {
+        fmt.Println("No tags provided")
+    } else {
+        fmt.Println("Tags:")
+        for i, tag := range tags {
+            fmt.Printf("  %d. %s\n", i+1, tag)
+        }
+    }
+
 	  // Positional arguments (anything after flags)
 	//   "NArg is the number of arguments remaining after flags have been processed."
 
