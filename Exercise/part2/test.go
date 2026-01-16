@@ -6,21 +6,21 @@ Computers typically compute the square root of x using a loop. Starting with som
 
 z -= (z*z - x) / (2*z)
 */
-package main
+// package main
 
-import "fmt"
+// import "fmt"
 
-func sqrt(x float64)float64{
-	z := x/2 // initial guess
-	for i:=0;i<10;i++{
-		z-=(z*z -x) /(2*z)
-		fmt.Println(z)
-	}
-	return  z
-}
-func main() {
-	fmt.Println(sqrt(25))
-}
+// func sqrt(x float64)float64{
+// 	z := x/2 // initial guess
+// 	for i:=0;i<10;i++{
+// 		z-=(z*z -x) /(2*z)
+// 		fmt.Println(z)
+// 	}
+// 	return  z
+// }
+// func main() {
+// 	fmt.Println(sqrt(25))
+// }
 
 /*
 Note:
@@ -53,3 +53,59 @@ Think of z := x/2 like setting a default shard size in a distributed DB:
 - The system (Newton’s iteration) then rebalances automatically until it converges to the right distribution (the true √x).
 
 */
+
+// Next, change the loop condition to stop once the value has stopped changing (or only changes by a very small amount). See if that's more or fewer than 10 iterations.
+
+package main
+
+import (
+	"fmt"
+	"math" // for math.Abs()
+)
+
+func Sqrt(x float64) float64 {
+    if x == 0 {
+        return 0
+    }
+
+    z := x / 2           // initial guess
+    const epsilon = 1e-12 // very small difference (adjust if needed)
+
+    fmt.Printf("Initial guess: %.15f\n", z)
+
+    iteration := 0
+    for {
+        iteration++
+        zNew := z - (z*z-x)/(2*z)
+
+        // Check how much it changed
+        difference := math.Abs(zNew - z)
+
+        fmt.Printf("Iteration %2d:  %.15f   (change: %.2e)\n", 
+            iteration, zNew, difference)
+
+        // Stop if change is extremely small
+        if difference < epsilon {
+            fmt.Printf("→ Stopped after %d iterations (change < %g)\n", 
+                iteration, epsilon)
+            break
+        }
+
+        z = zNew
+
+        // Safety: prevent infinite loop in case of weird input
+        if iteration > 100 {
+            fmt.Println("→ Safety limit reached (100 iterations)")
+            break
+        }
+    }
+
+    return z
+}
+
+func main() {
+    fmt.Println("Computing square root of 25:")
+    result := Sqrt(25)
+    fmt.Printf("\nFinal result: %.15f\n", result)
+    fmt.Println("Expected:     5.000000000000000")
+}
