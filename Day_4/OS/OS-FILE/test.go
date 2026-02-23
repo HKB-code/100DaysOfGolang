@@ -25,6 +25,12 @@ if(err2!=nil){
 for _,file := range files{
 	fmt.Println(file.Name())
 }
+/*
+- type DirEntry = fs.DirEntry is just an alias.
+- os.ReadDir returns a slice of fs.DirEntry interfaces.
+- Internally, those are backed by *os.dirEntry structs, but you only see the interface methods like Name().
+
+*/
 // Use reflect.TypeOf from the reflect package to determine the type of a variable.
 //When you use os.ReadDir, it returns a slice of fs.DirEntry, representing each file or directory entry in the specified directory.
 fmt.Println(reflect.TypeOf(files))
