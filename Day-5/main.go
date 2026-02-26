@@ -6,7 +6,9 @@ package main
 
 import (
 	"fmt"
+	"time"
 
+	transactionhistory "example.com/main/TransactionHistory"
 	fileops "example.com/main/fileOps"
 	"github.com/Pallinder/go-randomdata"
 )
@@ -20,6 +22,10 @@ if err!=nil{
 	fmt.Println("Error")
 	fmt.Println(err)
 	fmt.Println("-----------")
+}
+err=transactionhistory.WriteTOFile(fmt.Sprint("Default Balance: ",accountBalance))
+if  err!= nil {
+	fmt.Println(err)
 }
 
 	fmt.Println("Welcome to the Go Bank!")
@@ -47,6 +53,11 @@ if err!=nil{
 	    accountBalance+=depositAmpont
 		fmt.Println("Balance updates: ", accountBalance)
 		fileops.WriteValueFile(accountBalance,accountBalanceFile)
+		tx:= fmt.Sprintf("Deposite | Amount: %.2f | Balance: %.2f | Time: %s",depositAmpont,accountBalance,time.Now().Format(time.RFC3339))
+		err:=transactionhistory.WriteTOFile(tx)
+		if  err!= nil {
+			fmt.Println(err)
+		}
 
 
 
@@ -68,7 +79,17 @@ if err!=nil{
 		accountBalance -=withdrawlAmount
 		fmt.Println("Balance updates: ", accountBalance)
 		fileops.WriteValueFile(accountBalance,accountBalanceFile)
+        	tx:= fmt.Sprintf("Withdrawal | Amount: %.2f | Balance: %.2f | Time: %s",withdrawlAmount,accountBalance,time.Now().Format(time.RFC3339))
+		err:=transactionhistory.WriteTOFile(tx)
+		if  err!= nil {
+			fmt.Println(err)
+		}
 
+	case 4:
+		err:=transactionhistory.ReadFile()
+		if  err!= nil {
+			fmt.Println(err)
+		}
 
 
 	default: 
