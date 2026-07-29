@@ -1,0 +1,28 @@
+[
+ {
+  "name": "Leon",
+  "email": "Leon@gmail.com",
+  "phone": "+64444987",
+  "address": {
+   "Street": "PullTrip",
+   "City": "Sydney",
+   "State": "NSW",
+   "Country": "Australia",
+   "ZipCode": "9876"
+  },
+  "id": 1
+ },
+ {
+  "name": "Jim",
+  "email": "Jim31@gmail.com",
+  "phone": "+644445555",
+  "address": {
+   "Street": "Newway",
+   "City": "Sydney",
+   "State": "NSW",
+   "Country": "Australia",
+   "ZipCode": "09876"
+  },
+  "id": 3
+ }
+]
