@@ -23,8 +23,8 @@ Basic Usage
 -Call flag.Parse() in main() to process os.Args.
 -Use the flag values (they are pointers) or bind them directly to variables.
 
-Advanced FeaturesCustom Types:
--Implement the flag.Value interface (methods: String() and Set(string) error).
+Advanced Features
+-Custom Types:Implement the flag.Value interface (methods: String() and Set(string) error).
 -Subcommands: Use flag.NewFlagSet() for tools like git commit -m "msg".
 -Positional Arguments: Access with flag.Args() (slice) or flag.Arg(i) (single).
 -Print Defaults: flag.PrintDefaults() for custom help.
